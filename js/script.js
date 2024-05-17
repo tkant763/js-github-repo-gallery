@@ -59,6 +59,13 @@ const displayRepoInfo = function (repos) {
 reposListElement.addEventListener("click", function(e) {
   if (e.target.matches("h3")) {
     const repoName = e.target.innerText;
-    console.log(repoName);
+    getRepoInfo(repoName);
   }
 });
+
+// fetches information about a specific repository
+const getRepoInfo = async function(repoName) {
+  const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+  const repoInfo = await response.json();
+  console.log(repoInfo);
+}
