@@ -2,12 +2,14 @@
 const overviewDivElement = document.querySelector(".overview");
 // github username;
 const username = "tkant763";
+// unordered list for displaying repos
+const reposListElement = document.querySelector(".repo-list");
 
 // fetch Github user data
 const getAPIData = async function () {
     const response = await fetch(`https://api.github.com/users/${username}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     
     displayUserProfile(data);
 };
@@ -29,4 +31,10 @@ const displayUserProfile = function (data) {
     <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
   </div>`;
   overviewDivElement.append(userProfileDiv);
+};
+
+const fetchRepos = async function () {
+  const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+  const data = await response.json();
+  console.log(data);
 };
