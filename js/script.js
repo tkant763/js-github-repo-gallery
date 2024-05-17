@@ -31,10 +31,23 @@ const displayUserProfile = function (data) {
     <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
   </div>`;
   overviewDivElement.append(userProfileDiv);
+
+  fetchRepos();
 };
 
 const fetchRepos = async function () {
   const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
+
+  displayRepoInfo(data);
+};
+
+const displayRepoInfo = function (repos) {
+  for (let item of repos) {
+    const li = document.createElement("li");
+    li.classList.add("repo");
+    li.innerHTML = `<h3>${item.name}</h3>`;
+    reposListElement.append(li);
+  }
 };
