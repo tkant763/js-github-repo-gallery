@@ -4,6 +4,10 @@ const overviewDivElement = document.querySelector(".overview");
 const username = "tkant763";
 // unordered list for displaying repos
 const reposListElement = document.querySelector(".repo-list");
+// section where all repo information appears
+const allReposElement = document.querySelector(".repos");
+// seciotn where individual repo data appears
+const repoDataElement = document.querySelector(".repo-data");
 
 // fetch Github user data
 const getAPIData = async function () {
