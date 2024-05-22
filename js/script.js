@@ -3,7 +3,7 @@ const overviewDivElement = document.querySelector(".overview");
 // github username;
 const username = "tkant763";
 // unordered list for displaying repos
-const reposListElement = document.querySelector(".repo-list");
+const repoList = document.querySelector(".repo-list");
 // section where all repo information appears
 const allReposElement = document.querySelector(".repos");
 // seciotn where individual repo data appears
@@ -52,11 +52,11 @@ const displayRepoInfo = function (repos) {
     const li = document.createElement("li");
     li.classList.add("repo");
     li.innerHTML = `<h3>${item.name}</h3>`;
-    reposListElement.append(li);
+    repoList.append(li);
   }
 };
 
-reposListElement.addEventListener("click", function(e) {
+repoList.addEventListener("click", function(e) {
   if (e.target.matches("h3")) {
     const repoName = e.target.innerText;
     getRepoInfo(repoName);
@@ -67,5 +67,16 @@ reposListElement.addEventListener("click", function(e) {
 const getRepoInfo = async function(repoName) {
   const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
   const repoInfo = await response.json();
-  console.log(repoInfo);
+  // console.log(repoInfo);
+
+  const fetchLanguages = await fetch(repoInfo.languages_url);
+  const languageData = await fetchLanguages.json();
+  // console.log(languageData);
+
+  const languages = [];
+  for(let key in languageData) {
+    languages.push(key);
+  }
+
+  console.log(languages);
 }
