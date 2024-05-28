@@ -44,10 +44,11 @@ const fetchRepos = async function () {
   const data = await response.json();
   // console.log(data);
 
-  displayRepoInfo(data);
+  displayRepoList(data);
 };
 
-const displayRepoInfo = function (repos) {
+// display the repos belonging to the account in an HTML unordered list 
+const displayRepoList = function (repos) {
   for (let item of repos) {
     const li = document.createElement("li");
     li.classList.add("repo");
@@ -67,7 +68,7 @@ repoList.addEventListener("click", function(e) {
 const getRepoInfo = async function(repoName) {
   const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
   const repoInfo = await response.json();
-  // console.log(repoInfo);
+  console.log(repoInfo);
 
   const fetchLanguages = await fetch(repoInfo.languages_url);
   const languageData = await fetchLanguages.json();
@@ -79,4 +80,22 @@ const getRepoInfo = async function(repoName) {
   }
 
   console.log(languages);
+
+  displayRepoInfo(repoInfo, languages)
 }
+
+// display the information for a specific repo
+const displayRepoInfo = function(repoInfo, languages) {
+  repoDataElement.innerHTML = "";
+
+  const div = document.createElement("div");
+  div.innerHTML = `<h3>Name: ${repoInfo.name}</h3>
+  <p>Description: ${repoInfo.description}</p>
+  <p>Default Branch: ${repoInfo.default_branch}</p>
+  <p>Languages: ${languages.join(", ")}</p>
+  <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`;
+  repoDataElement.append(div);
+  repoDataElement.classList.remove("hide");
+  repoList.classList.add("hide");
+
+};
