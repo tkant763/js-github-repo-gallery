@@ -8,6 +8,10 @@ const repoList = document.querySelector(".repo-list");
 const allReposElement = document.querySelector(".repos");
 // section where individual repo data appears
 const repoData = document.querySelector(".repo-data");
+// "back to repo gallery" button
+const viewRepos = document.querySelector(".view-repos");
+// "search by name" text input
+const filterInput = document.querySelector(".filter-repos");
 
 // fetch Github user data
 const gitUserInfo = async function () {
