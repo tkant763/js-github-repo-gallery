@@ -9,7 +9,7 @@ const allReposElement = document.querySelector(".repos");
 // section where individual repo data appears
 const repoData = document.querySelector(".repo-data");
 // "back to repo gallery" button
-const viewRepos = document.querySelector(".view-repos");
+const viewReposButton = document.querySelector(".view-repos");
 // "search by name" text input
 const filterInput = document.querySelector(".filter-repos");
 
@@ -90,6 +90,7 @@ const getRepoInfo = async function(repoName) {
 const displayRepoInfo = function(repoInfo, languages) {
   repoData.innerHTML = "";
   repoData.classList.remove("hide");
+  viewReposButton.classList.remove("hide");
   repoList.classList.add("hide");
 
   const div = document.createElement("div");
@@ -100,3 +101,10 @@ const displayRepoInfo = function(repoInfo, languages) {
   <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`;
   repoData.append(div);
 };
+
+// return to repo gallery display by clicking a button
+viewReposButton.addEventListener("click", function() {
+  repoList.classList.remove("hide");
+  repoData.classList.add("hide");
+  viewReposButton.classList.add("hide");
+});
