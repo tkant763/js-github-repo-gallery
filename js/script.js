@@ -51,6 +51,8 @@ const fetchRepos = async function () {
 
 // display the repos belonging to the account in an HTML unordered list 
 const displayRepoList = function (repos) {
+  filterInput.classList.remove("hide");
+  
   for (const repo of repos) {
     const repoItem = document.createElement("li");
     repoItem.classList.add("repo");
