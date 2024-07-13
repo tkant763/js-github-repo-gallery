@@ -18,6 +18,7 @@ const gitUserInfo = async function () {
     const response = await fetch(`https://api.github.com/users/${username}`);
     const data = await response.json();
     
+    // console.log(data);
     displayUserProfile(data);
 };
 
@@ -46,6 +47,7 @@ const fetchRepos = async function () {
   const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
   const data = await response.json();
 
+  // console.log(data);
   displayRepoList(data);
 };
 
@@ -85,7 +87,7 @@ const getRepoInfo = async function(repoName) {
     languages.push(language);
   }
 
-  displayRepoInfo(repoInfo, languages)
+  displayRepoInfo(repoInfo, languages);
 }
 
 // display the information for a specific repo
@@ -109,4 +111,25 @@ viewReposButton.addEventListener("click", function() {
   repoList.classList.remove("hide");
   repoData.classList.add("hide");
   viewReposButton.classList.add("hide");
+});
+
+// search 
+filterInput.addEventListener("input", function(e) {
+  const inputText = e.target.value;
+  const searchQuery = inputText.toLowerCase();
+  
+  const repos = document.querySelectorAll(".repo");
+  // console.log(repos);
+  
+  for (const repo of repos) {
+    const repoName = repo.innerText.toLowerCase();
+    console.log(repoName);
+
+    if (!(repoName.match(searchQuery))) {
+      repo.classList.add("hide");
+    } else {
+      repo.classList.remove("hide");
+    }
+  }
+  
 });
